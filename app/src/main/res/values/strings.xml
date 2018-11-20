@@ -5,4 +5,7 @@
     <string name="query_hint">Enter your query</string>
     <string name="list_view_button_text">Show results as list</string>
     <string name="list_image_button_text">Show results as images</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

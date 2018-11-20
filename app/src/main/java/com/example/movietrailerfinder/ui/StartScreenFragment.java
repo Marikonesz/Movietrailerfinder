@@ -1,6 +1,8 @@
 package com.example.movietrailerfinder.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.movietrailerfinder.R;
 import com.example.movietrailerfinder.entities.Movie;
@@ -15,6 +18,7 @@ import com.example.movietrailerfinder.entities.SearchResult;
 import com.example.movietrailerfinder.tmdbapi.TmdbApi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,7 +30,7 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
     private EditText queryField;
     private Button listViewButton;
     private Button imageViewButton;
-    private ArrayList<Movie> results = new ArrayList();
+    private static ArrayList<Movie> results = new ArrayList();
     public static final String TAG = StartScreenFragment.class.getCanonicalName();
 
 
@@ -63,21 +67,34 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.list_view_button:
-                TmdbApi.getTmdbApi().serchMovies(getActivity().getString(R.string.api_key), queryField.getText().toString()).enqueue(new Callback<SearchResult>() {
-                    @Override
-                    public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
-                        results.clear();
-                        results.addAll(response.body().getResults());
-                    }
-
-                    @Override
-                    public void onFailure(Call<SearchResult> call, Throwable t) {
-
-                    }
-                });
-
+                sendSearchReqest(queryField.getText().toString());
+                break;
+            case R.id.image_view_button:
+                sendSearchReqest(queryField.getText().toString());
         }
 
 
+    }
+
+    private void sendSearchReqest(String query) {
+        TmdbApi.getTmdbApi().serchMovies(getActivity().getString(R.string.api_key), query).enqueue(new Callback<SearchResult>() {
+            @Override
+            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+                results.clear();
+                if (response.code() == 200)
+                    results.addAll(response.body().getResults());
+                else {
+                    Toast.makeText(getActivity(), response.code() + response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResult> call, Throwable t) {
+
+            }
+        });
+    }
+    public static List getResults(){
+        return results;
     }
 }
