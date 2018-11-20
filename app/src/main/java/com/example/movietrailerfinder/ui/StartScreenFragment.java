@@ -68,6 +68,9 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
         switch (view.getId()) {
             case R.id.list_view_button:
                 sendSearchReqest(queryField.getText().toString());
+                if(getActivity().getFragmentManager().findFragmentByTag(ListViewFragment.TAG) == null){
+                    getActivity().getFragmentManager().beginTransaction().add(R.id.fragments_container, new ListViewFragment(), ListViewFragment.TAG)
+                            .commit();                }
                 break;
             case R.id.image_view_button:
                 sendSearchReqest(queryField.getText().toString());
