@@ -1,10 +1,7 @@
 package com.example.movietrailerfinder.ui;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +29,7 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
     private Button imageViewButton;
     private static ArrayList<Movie> results = new ArrayList();
     public static final String TAG = StartScreenFragment.class.getCanonicalName();
+    public static int kindOfView;
 
 
     public StartScreenFragment() {
@@ -52,30 +50,11 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-
-    }
-
-    @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.list_view_button:
-                sendSearchReqest(queryField.getText().toString());
-                if(getActivity().getFragmentManager().findFragmentByTag(ListViewFragment.TAG) == null){
-                    getActivity().getFragmentManager().beginTransaction().add(R.id.fragments_container, new ListViewFragment(), ListViewFragment.TAG)
-                            .commit();                }
-                break;
-            case R.id.image_view_button:
-                sendSearchReqest(queryField.getText().toString());
-        }
 
+                sendSearchReqest(queryField.getText().toString());
+                kindOfView = view.getId();
+                inflateResultsViewFragment();
 
     }
 
@@ -97,7 +76,16 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
             }
         });
     }
-    public static List getResults(){
+
+    private void inflateResultsViewFragment() {
+        if (getActivity().getFragmentManager().findFragmentByTag(ResultsViewFragment.TAG) == null) {
+            getActivity().getFragmentManager().beginTransaction().replace(R.id.fragments_container, new ResultsViewFragment(), ResultsViewFragment.TAG)
+                    .commit();
+        }
+    }
+
+
+    public static List getResults() {
         return results;
     }
 }
