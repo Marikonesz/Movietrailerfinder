@@ -1,10 +1,14 @@
 package com.example.movietrailerfinder.entities;
 
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SearchResult {
+import java.util.List;
+
+public class SearchResult implements Parcelable {
 
     @SerializedName("page")
     @Expose
@@ -51,4 +55,14 @@ public class SearchResult {
         this.results = results;
     }
 
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(page);
+        dest.writeValue(totalResults);
+        dest.writeValue(totalPages);
+        dest.writeList(results);
+    }
+
+    public int describeContents() {
+        return 0;
+    }
 }

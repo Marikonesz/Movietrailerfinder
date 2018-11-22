@@ -2,6 +2,7 @@
     <string name="app_name">Movietrailerfinder</string>
     <string name="api_key">0436a74bae86bba91c3d6511e0af84ff</string>
     <string name="api_base_url">https://api.themoviedb.org/</string>
+    <string name="youtube_key">AIzaSyBhWKFl9cqepUBlsnjcwk3JbQrziSIYlIw</string>
     <string name="poster_base_url">https://image.tmdb.org/t/p/w500</string>
     <string name="query_hint">Enter your query</string>
     <string name="list_view_button_text">Show results as list</string>

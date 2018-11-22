@@ -1,10 +1,14 @@
 package com.example.movietrailerfinder.entities;
 
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import java.util.List;
+
+public class Movie implements Parcelable {
 
     @SerializedName("vote_count")
     @Expose
@@ -161,4 +165,24 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(voteCount);
+        dest.writeValue(id);
+        dest.writeValue(video);
+        dest.writeValue(voteAverage);
+        dest.writeValue(title);
+        dest.writeValue(popularity);
+        dest.writeValue(posterPath);
+        dest.writeValue(originalLanguage);
+        dest.writeValue(originalTitle);
+        dest.writeList(genreIds);
+        dest.writeValue(backdropPath);
+        dest.writeValue(adult);
+        dest.writeValue(overview);
+        dest.writeValue(releaseDate);
+    }
+
+    public int describeContents() {
+        return 0;
+    }
 }

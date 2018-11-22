@@ -62,6 +62,7 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
         TmdbApi.getTmdbApi().serchMovies(getActivity().getString(R.string.api_key), query).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
+                if(!results.isEmpty())
                 results.clear();
                 if (response.code() == 200)
                     results.addAll(response.body().getResults());
@@ -79,13 +80,20 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
 
     private void inflateResultsViewFragment() {
         if (getActivity().getFragmentManager().findFragmentByTag(ResultsViewFragment.TAG) == null) {
-            getActivity().getFragmentManager().beginTransaction().replace(R.id.fragments_container, new ResultsViewFragment(), ResultsViewFragment.TAG)
-                    .commit();
-        }
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.fragments_container, new ResultsViewFragment(), ResultsViewFragment.TAG)
+                .commit();
     }
+}
 
 
     public static List getResults() {
         return results;
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("results", results);
+
+
     }
 }
