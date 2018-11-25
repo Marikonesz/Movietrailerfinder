@@ -1,5 +1,6 @@
 package com.example.movietrailerfinder.ui;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.movietrailerfinder.R;
@@ -16,9 +18,12 @@ import java.util.List;
 
 public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Movie> results;
+    private Context context;
 
-    public ResultsRecyclerViewAdapter(List results) {
+    public ResultsRecyclerViewAdapter(List results, Context context) {
+
         this.results = results;
+        this.context = context;
     }
 
     @NonNull
@@ -49,6 +54,12 @@ return holder;
                 ListViewHolder listViewHolder = (ListViewHolder) holder;
                 listViewHolder.movieId.setText(results.get(position).getId().toString());
                 listViewHolder.movieTitle.setText(results.get(position).getTitle());
+                listViewHolder.setItemOnClickListener(new ItemOnClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+                        Toast.makeText(context,"works",Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.image_view_button:
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
@@ -67,25 +78,37 @@ return holder;
         return results.size();
     }
 
-    public class ListViewHolder extends RecyclerView.ViewHolder {
+    public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView movieId;
         TextView movieTitle;
+        private ItemOnClickListener itemOnClickListener;
 
-        public ListViewHolder(View listViewItem) {
-            super(listViewItem);
-            movieId = listViewItem.findViewById(R.id.movie_id);
-            movieTitle = listViewItem.findViewById(R.id.movie_title);
+        public ListViewHolder(View resultsViewItem) {
+            super(resultsViewItem);
+            movieId = resultsViewItem.findViewById(R.id.movie_id);
+            movieTitle = resultsViewItem.findViewById(R.id.movie_title);
+            resultsViewItem.setOnClickListener(this);
+        }
+
+        public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
+            this.itemOnClickListener = itemOnClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemOnClickListener.onClick(view,getAdapterPosition());
+
         }
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
+    public class ImageViewHolder extends RecyclerView.ViewHolder  {
         ImageView poster;
         TextView movieTitle;
 
-        public ImageViewHolder(View listViewItem) {
-            super(listViewItem);
-            poster = listViewItem.findViewById(R.id.poster);
-            movieTitle = listViewItem.findViewById(R.id.poster_title);
+        public ImageViewHolder(View resultsViewItem) {
+            super(resultsViewItem);
+            poster = resultsViewItem.findViewById(R.id.poster);
+            movieTitle = resultsViewItem.findViewById(R.id.poster_title);
         }
     }
 }
