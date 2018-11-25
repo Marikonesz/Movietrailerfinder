@@ -1,5 +1,6 @@
 package com.example.movietrailerfinder.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +14,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.movietrailerfinder.R;
 import com.example.movietrailerfinder.entities.Movie;
+import com.google.android.youtube.player.YouTubePlayerFragment;
 
 import java.util.List;
 
 public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Movie> results;
-    private Context context;
+    private Activity rootAcivity;
 
-    public ResultsRecyclerViewAdapter(List results, Context context) {
+    public ResultsRecyclerViewAdapter(List results, Activity rootAcivity) {
 
         this.results = results;
-        this.context = context;
+        this.rootAcivity = rootAcivity;
     }
 
     @NonNull
@@ -33,18 +35,18 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         RecyclerView.ViewHolder holder = null;
         switch (viewType) {
             case R.id.list_view_button:
-              viewItem   = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_item, parent, false);
+                viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_view_item, parent, false);
                 holder = new ListViewHolder(viewItem);
                 break;
 
             case R.id.image_view_button:
-                 viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_view_item, parent, false);
+                viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_view_item, parent, false);
                 holder = new ImageViewHolder(viewItem);
 
             default:
 
         }
-return holder;
+        return holder;
     }
 
     @Override
@@ -57,7 +59,7 @@ return holder;
                 listViewHolder.setItemOnClickListener(new ItemOnClickListener() {
                     @Override
                     public void onClick(View v, int position) {
-                        Toast.makeText(context,"works",Toast.LENGTH_SHORT).show();
+                        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, new FullMovieInfoFragment()).commit();
                     }
                 });
                 break;
@@ -65,6 +67,13 @@ return holder;
                 ImageViewHolder imageViewHolder = (ImageViewHolder) holder;
                 Glide.with(imageViewHolder.poster.getContext()).load(imageViewHolder.poster.getContext().getString(R.string.poster_base_url) + results.get(position).getPosterPath()).into(imageViewHolder.poster);
                 imageViewHolder.movieTitle.setText(results.get(position).getTitle());
+                imageViewHolder.setItemOnClickListener(new ItemOnClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+                        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, new FullMovieInfoFragment()).commit();
+
+                    }
+                });
         }
     }
 
@@ -78,7 +87,7 @@ return holder;
         return results.size();
     }
 
-    public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView movieId;
         TextView movieTitle;
         private ItemOnClickListener itemOnClickListener;
@@ -96,19 +105,30 @@ return holder;
 
         @Override
         public void onClick(View view) {
-            itemOnClickListener.onClick(view,getAdapterPosition());
+            itemOnClickListener.onClick(view, getAdapterPosition());
 
         }
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder  {
+    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView poster;
         TextView movieTitle;
+        private ItemOnClickListener itemOnClickListener;
 
         public ImageViewHolder(View resultsViewItem) {
             super(resultsViewItem);
             poster = resultsViewItem.findViewById(R.id.poster);
             movieTitle = resultsViewItem.findViewById(R.id.poster_title);
+            resultsViewItem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemOnClickListener.onClick(view, getAdapterPosition());
+
+        }
+        public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
+            this.itemOnClickListener = itemOnClickListener;
         }
     }
 }

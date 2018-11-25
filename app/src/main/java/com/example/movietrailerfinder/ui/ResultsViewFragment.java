@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.movietrailerfinder.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +40,7 @@ public class ResultsViewFragment extends android.app.Fragment implements View.On
             linearLayoutManager = new LinearLayoutManager(getActivity());
         }
         resultsRecyclerView.setLayoutManager(linearLayoutManager);
-        adapter = adapter = new ResultsRecyclerViewAdapter(StartScreenFragment.getResults(), getActivity());
+        adapter = new ResultsRecyclerViewAdapter(StartScreenFragment.getResults(), getActivity());
         resultsRecyclerView.setAdapter(adapter);
 
 
@@ -54,5 +54,6 @@ public class ResultsViewFragment extends android.app.Fragment implements View.On
         if (getActivity().getFragmentManager().findFragmentByTag(StartScreenFragment.TAG) == null)
             getActivity().getFragmentManager().beginTransaction().replace(R.id.fragments_container, new StartScreenFragment(), StartScreenFragment.TAG)
                     .commit();
+
     }
 }
