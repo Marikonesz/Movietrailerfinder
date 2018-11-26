@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.movietrailerfinder.R;
+import com.google.android.youtube.player.YouTubeBaseActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends YouTubeBaseActivity {
     FragmentManager fragmentManager = getFragmentManager();
 
     @Override

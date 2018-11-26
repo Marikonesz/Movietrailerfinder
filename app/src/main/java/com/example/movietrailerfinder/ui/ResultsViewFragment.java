@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import com.example.movietrailerfinder.R;
 
 
@@ -17,10 +18,10 @@ import com.example.movietrailerfinder.R;
  */
 public class ResultsViewFragment extends android.app.Fragment implements View.OnClickListener {
     View view;
-    public static RecyclerView resultsRecyclerView;
-    Button returnButton;
-    ResultsRecyclerViewAdapter adapter;
-    LinearLayoutManager linearLayoutManager;
+    private RecyclerView resultsRecyclerView;
+    private Button returnButton;
+    private ResultsRecyclerViewAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
     public static final String TAG = ResultsViewFragment.class.getCanonicalName();
 
     public ResultsViewFragment() {

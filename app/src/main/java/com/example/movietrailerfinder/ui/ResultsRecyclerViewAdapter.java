@@ -2,6 +2,7 @@ package com.example.movietrailerfinder.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -59,7 +60,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 listViewHolder.setItemOnClickListener(new ItemOnClickListener() {
                     @Override
                     public void onClick(View v, int position) {
-                        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, new FullMovieInfoFragment()).commit();
+                        openFullMovieInfoFragment(position);
                     }
                 });
                 break;
@@ -70,7 +71,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                 imageViewHolder.setItemOnClickListener(new ItemOnClickListener() {
                     @Override
                     public void onClick(View v, int position) {
-                        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, new FullMovieInfoFragment()).commit();
+                        openFullMovieInfoFragment(position);
 
                     }
                 });
@@ -85,6 +86,14 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
     @Override
     public int getItemCount() {
         return results.size();
+    }
+
+    void openFullMovieInfoFragment(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("movie", results.get(position));
+        FullMovieInfoFragment fullMovieInfoFragment = new FullMovieInfoFragment();
+        fullMovieInfoFragment.setArguments(bundle);
+        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, fullMovieInfoFragment).commit();
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -127,6 +136,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
             itemOnClickListener.onClick(view, getAdapterPosition());
 
         }
+
         public void setItemOnClickListener(ItemOnClickListener itemOnClickListener) {
             this.itemOnClickListener = itemOnClickListener;
         }

@@ -46,6 +46,7 @@
         android:layout_height="0dp"
         android:layout_weight="6" />
     <Button
+        android:id="@+id/return_button_full_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

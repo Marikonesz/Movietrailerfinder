@@ -12,7 +12,7 @@ public interface TmdbApiInterface {
     @GET("3/search/movie")
     Call<SearchResult>serchMovies(@Query("api_key") String apiKey, @Query("query") String query);
 
-    @GET("3/search/movie/{movie}")
-    Call<SearchResult>getAllInformation(@Path("movie")int movieId, @Query("api_key") String apiKey);
+    @GET("3/movie/{movie}/videos")
+    Call<SearchResult>getTrailers(@Path("movie")int movieId, @Query("api_key") String apiKey);
 
 }
