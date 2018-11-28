@@ -42,15 +42,10 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/trailers_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6" />
-    <Button
-        android:id="@+id/return_button_full_info"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="@string/return_button"/>
-
+        android:layout_weight="6"
+         />
 
 </LinearLayout>

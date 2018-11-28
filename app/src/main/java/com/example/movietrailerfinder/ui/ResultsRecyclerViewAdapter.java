@@ -93,7 +93,7 @@ public class ResultsRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         bundle.putParcelable("movie", results.get(position));
         FullMovieInfoFragment fullMovieInfoFragment = new FullMovieInfoFragment();
         fullMovieInfoFragment.setArguments(bundle);
-        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, fullMovieInfoFragment).commit();
+        rootAcivity.getFragmentManager().beginTransaction().replace(R.id.fragments_container, fullMovieInfoFragment).addToBackStack(null).commit();
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

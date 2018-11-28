@@ -50,6 +50,14 @@ public class MovieTrailers implements Parcelable
         this.id = id;
     }
 
+    public List<Trailer> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Trailer> results) {
+        this.results = results;
+    }
+
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
         dest.writeList(results);
