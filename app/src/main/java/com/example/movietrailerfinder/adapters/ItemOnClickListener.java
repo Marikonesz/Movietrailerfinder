@@ -1,4 +1,4 @@
-package com.example.movietrailerfinder.ui;
+package com.example.movietrailerfinder.adapters;
 
 import android.view.View;
 

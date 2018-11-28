@@ -6,9 +6,9 @@
     <fragment
         android:name="com.google.android.youtube.player.YouTubePlayerFragment"
         android:id="@+id/youtube_fragment"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
         />
 
 

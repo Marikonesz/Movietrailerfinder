@@ -16,7 +16,7 @@ public class MainActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             if (fragmentManager.findFragmentByTag(StartScreenFragment.TAG) == null)
-                fragmentManager.beginTransaction().replace(R.id.fragments_container, new StartScreenFragment(), StartScreenFragment.TAG)
+                fragmentManager.beginTransaction().replace(R.id.fragments_container, new StartScreenFragment(), StartScreenFragment.TAG).addToBackStack(null)
                         .commit();
         }
     }

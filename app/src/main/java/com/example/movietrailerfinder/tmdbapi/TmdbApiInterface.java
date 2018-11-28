@@ -1,5 +1,6 @@
 package com.example.movietrailerfinder.tmdbapi;
 
+import com.example.movietrailerfinder.entities.MovieTrailers;
 import com.example.movietrailerfinder.entities.SearchResult;
 
 import retrofit2.Call;
@@ -13,6 +14,6 @@ public interface TmdbApiInterface {
     Call<SearchResult>serchMovies(@Query("api_key") String apiKey, @Query("query") String query);
 
     @GET("3/movie/{movie}/videos")
-    Call<SearchResult>getTrailers(@Path("movie")int movieId, @Query("api_key") String apiKey);
+    Call<MovieTrailers>getTrailers(@Path("movie")int movieId, @Query("api_key") String apiKey);
 
 }
