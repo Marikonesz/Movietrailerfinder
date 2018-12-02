@@ -2,6 +2,7 @@ package com.example.movietrailerfinder.ui;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,15 +67,21 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
                     results.clear();
                 if (response.code() == 200) {
                     results.addAll(response.body().getResults());
-                    inflateResultsViewFragment();
-                } else {
-                    Toast.makeText(getActivity(), "error: " + response.code()  + " " + response.message(), Toast.LENGTH_SHORT).show();
+                    if (results.size() > 0) {
+                        inflateResultsViewFragment();
+                    } else {
+                        showToast("No movies were found");
+                        queryField.setText("");
+                    }
+                } else if (response.code() == 422) {
+                    showToast("Empty request");
+
                 }
             }
 
             @Override
             public void onFailure(Call<SearchResult> call, Throwable t) {
-
+                showToast("Please check your network connection");
             }
         });
     }
@@ -86,6 +93,11 @@ public class StartScreenFragment extends Fragment implements View.OnClickListene
         }
     }
 
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.show();
+    }
 
     public static List getResults() {
         return results;

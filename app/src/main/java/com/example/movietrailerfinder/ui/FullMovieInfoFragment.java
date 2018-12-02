@@ -1,7 +1,6 @@
 package com.example.movietrailerfinder.ui;
 
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -64,15 +63,12 @@ public class FullMovieInfoFragment extends android.app.Fragment implements View.
             public void onResponse(Call<MovieTrailers> call, Response<MovieTrailers> response) {
                 trailers.clear();
                 trailers.addAll(response.body().getResults());
-
-                    trailersRecyclerView = view.findViewById(R.id.trailers_recycler_view);
-                    adapter = new TreilersREcyclerViewAdapter(trailers, getActivity());
-                    gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
-                    }
-                    trailersRecyclerView.setLayoutManager(gridLayoutManager);
-                    trailersRecyclerView.setAdapter(adapter);
+                trailersRecyclerView = view.findViewById(R.id.trailers_recycler_view);
+                adapter = new TreilersREcyclerViewAdapter(trailers, getActivity());
+                gridLayoutManager = new GridLayoutManager(getActivity(), 2);
+                gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+                trailersRecyclerView.setLayoutManager(gridLayoutManager);
+                trailersRecyclerView.setAdapter(adapter);
 
             }
 

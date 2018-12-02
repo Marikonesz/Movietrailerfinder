@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <fragment
-        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
-        android:id="@+id/youtube_fragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/play_video_button"
+        android:layout_width="@dimen/youtube_wight"
+        android:layout_height="@dimen/youtube_height"
         android:layout_marginVertical="@dimen/activity_vertical_margin"
-        />
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
 
 </LinearLayout>
